@@ -10,7 +10,10 @@ var scan_function = function() {
 }
 
 var createTable = function (){
-    $.getJSON('my.json', function(data) {
+
+
+
+    $.getJSON('event_log.json', function(data) {
             $.each(data, function(index, value) {
                   List[index] = [];
                   List[index].push(index+1);

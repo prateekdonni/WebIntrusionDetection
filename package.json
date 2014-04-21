@@ -1,0 +1,14 @@
+{
+  "name": "Tanvir'sProject",
+  "version": "0.0.1",
+  "description": "Master's Project",
+  "keywords": [
+    "SJSU"
+  ],
+  "author": "Tanvir Kekan",
+  "license": "Closed",
+  "devDependencies": {
+    "fs": "~1.1.1",
+    "mysql" : "~2.1.1"
+  }
+}
