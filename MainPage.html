@@ -74,7 +74,7 @@
 
            <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/100x100/auto/lava/text: 62" class="img-responsive" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
+              <img id="vuln" data-src="holder.js/100x100/auto/lava/text: 62" class="img-responsive" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
               <h4>Vulnerabilities Found</h4>
               <span class="text-muted">Last scanned: Yesterday</span>
             </div>
@@ -94,6 +94,11 @@
               <span class="text-muted">some more...</span>
             </div>
           </div>
+<!--           <div class="container">
+              <div class="progress progress-striped active">
+                  <div class="bar" style="width: 0%;"></div>
+              </div>
+          </div> -->
 
           <h2 class="sub-header">Section title</h2>
           <div class="table-responsive" id="main_area">
@@ -115,8 +120,8 @@
     <script type="text/javascript" src="js/moments.js"></script>
     <script type="text/javascript" src="js/network.js"></script>
 
-
     <script type="text/javascript">
+
         var text;
         function numToDot( num) {
         var d = num%256;
@@ -149,16 +154,16 @@
         }
         var packetLog;
         $( document ).ready(function() {
-
+            createTable(function (l){
+                var vuln_length = l.length;
+                localStorage.ListData = l;
+                var vuln_circle = document.getElementById("vuln");
+                vuln.setAttribute("data-src","holder.js/100x100/auto/lava/text: " + l.length);
+                Holder.run();
+            });
 
             $("#scan_button").click( function( e ) {
                     scan_function();
-            });
-
-            createTable();
-
-            $("#table_id tbody tr").click( function( e ) {
-                    alert("in here new table");
             });
         });
 

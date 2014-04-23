@@ -6,14 +6,37 @@ var scan_function = function() {
     console.log("main",main);
     var example = document.getElementById('example_wrapper');
     main.removeChild(example);
-    main.innerHtml = "Hello World";
+
 }
 
-var createTable = function (){
+
+var table = document.getElementById("example");
+table.addEventListener('click',function (){
+    console.log("clicked");
+})
+
+// var tbody = document.getElementById("tbody");
+// tbody.addEventListener('click',function (){
+//     console.log("clicked tbody");
+// })
 
 
+var progress = setInterval(function () {
+    var $bar = $('.bar');
 
-    $.getJSON('event_log.json', function(data) {
+    if ($bar.width() >= 400) {
+        clearInterval(progress);
+        $('.progress').removeClass('active');
+    } else {
+        $bar.width($bar.width() + 80);
+    }
+    $bar.text($bar.width() / 4 + "%");
+
+}, 800);
+
+
+var createTable = function (callback){
+    var request = $.getJSON('event_log.json', function(data) {
             $.each(data, function(index, value) {
                   List[index] = [];
                   List[index].push(index+1);
@@ -42,9 +65,42 @@ var createTable = function (){
                             { "sTitle": "Event Message"},
                         ]
                     });
+
     });
-    console.log("list2",List);
-    getDetails();
+
+    request.done(function(){
+        console.log("After Callback");
+        console.log("list",List);
+        window.List = List;
+        callback(List);
+        // put this into local storage for use in other functions and charts
+        // refresh everytime scan occurs
+    });
+
+    // getDetails();
+
+}
+
+function storeData (){
+    var List=[];
+    $.getJSON('event_log.json', function(data) {
+            $.each(data, function(index, value) {
+                  List[index] = [];
+                  List[index].push(index+1);
+                  List[index].push(value.sig_priority);
+                  var myDate = new Date(value.timestamp);
+                  myDate = moment(myDate).format('YYYY-MM-DD HH:mm:ss');
+                  List[index].push(myDate);
+                  List[index].push(numToDot(value.ip_src));
+                  List[index].push(FindPortTypes(value,true));
+                  List[index].push(numToDot(value.ip_dst));
+                  List[index].push(FindPortTypes(value,false));
+                  List[index].push(value.sig_name);
+
+            });
+            return data;
+    });
+
 
 }
 
