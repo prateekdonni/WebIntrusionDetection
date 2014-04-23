@@ -121,7 +121,7 @@
     <script type="text/javascript" src="js/network.js"></script>
 
     <script type="text/javascript">
-
+        var globalList;
         var text;
         function numToDot( num) {
         var d = num%256;
@@ -156,14 +156,19 @@
         $( document ).ready(function() {
             createTable(function (l){
                 var vuln_length = l.length;
-                localStorage.ListData = l;
+                var dataToStore = JSON.stringify(l);
+                localStorage.setItem('ListData', dataToStore);
+                globalList = l;
+
+                //localStorage.ListData = l;
                 var vuln_circle = document.getElementById("vuln");
                 vuln.setAttribute("data-src","holder.js/100x100/auto/lava/text: " + l.length);
                 Holder.run();
             });
 
             $("#scan_button").click( function( e ) {
-                    scan_function();
+                scan_function();
+                console.log("localStorage",globalList);
             });
         });
 
